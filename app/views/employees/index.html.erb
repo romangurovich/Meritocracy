@@ -1,0 +1,13 @@
+<p class="lead">
+	<big>Employees</big>
+</p>
+
+<ol>
+<% Employee.all.each do |employee| %>
+	<li class = "well">
+		<%= link_to employee.name, employee_path(employee) %>
+	</li>
+<% end %>
+</ol>
+
+<%= link_to "Add Employee", new_employee_path, class: "pretty-link" %>

@@ -1,0 +1,56 @@
+<%= form_for(employee) do |f| %>
+
+	<p>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</p>
+
+		<%#= f.label :supervisor, "Boss" %>
+		<%#= f.collection_select :supervisor, :supervisor_id, Employee.all, :id, :name %>
+	<p>
+		<label id = "employee_supervisor">Boss</label>
+		<select name = "employee[supervisor_id]" id = "employee_supervisor">
+		<% Employee.all.each do |boss| %>
+			<option value="<%= boss.id %>"><%= boss.name %></option>
+		<% end %>
+		</select>
+	</p>
+
+	<% unless employee.persisted? %>
+	<p>
+		<label id = "employee_teams">Select up to 3 teams</label>
+		<table>
+		<tr>
+		<% 3.times do |i| %> 
+			<td>
+				<label id = '<%= "employee_team_#{i+1}" %>'>Team <%= i + 1 %></label>
+				<select name = "employee[team_ids][]" id = '<%= "employee_team_#{i+1}" %>'>
+					<option value = "">(None)</option>
+					<% Team.all.each do |team| %>
+						<option value ="<%= team.id %>"><%= team.name %></option>
+					<% end %>
+				</select>
+			</th>
+		<% end %>
+	</td>
+	</table>
+	</p>
+	<% end %>
+
+	<p>
+		<%= f.fields_for(:profile) do |profile_form| %>
+			<p>
+				<%= profile_form.label :summary %>
+				<%= profile_form.text_area :summary %>
+			</p>
+
+			<p>
+				<%= profile_form.label :role %>
+				<%= profile_form.text_field :role %>
+			</p>
+		<% end %>
+	<p>
+		<%= f.submit employee.persisted? ? "Update" : "Create" %>
+	</p>
+
+<% end %>
