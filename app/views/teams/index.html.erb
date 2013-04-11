@@ -1,0 +1,11 @@
+<p class="lead">
+	<big>Teams</big>
+</p>
+
+<ol>
+<% Team.all.each do |team| %>
+	<li class = "well">
+		<%= link_to team.name, team_path(team) %>
+	</li>
+<% end %>
+</ol>

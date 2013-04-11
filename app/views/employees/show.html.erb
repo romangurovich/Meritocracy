@@ -1,0 +1,12 @@
+<p class="lead">
+	<big><%= @employee.name %></big>
+	<%= @employee.teams.empty? ? "has no teams" : "is a member of the following teams" %>
+</p>
+
+<ol>
+<% @employee.teams.each do |team| %>
+	<li class = "well">
+		<%= link_to team.name, team_path(team) %>
+	</li>
+<% end %>
+</ol>
