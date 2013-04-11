@@ -1,0 +1,34 @@
+<%= form_for(team) do |f| %>
+
+	<p>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</p>
+
+	<p>
+		<%= f.label :supervisor, "Team Lead" %>
+		<%= f.collection_select :supervisor_id, Employee.all, :id, :name %>
+	<p>
+
+	<p>
+		<label>Select team members</label>
+		<% Employee.all.each do |member| %>
+			<label>
+				<%= check_box_tag(
+					"team[member_ids][]",
+					member.id,
+					team.member_ids.include?(member.id),
+					)
+				%>
+				<%= member.name %>
+			</label>
+		<% end %>
+
+		<% hidden_field_tag "team[member_ids][]" %>
+	</p>
+
+	<p>
+		<%= f.submit team.persisted? ? "Update" : "Create" %>
+	</p>
+
+<% end %>

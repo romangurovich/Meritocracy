@@ -3,9 +3,15 @@
 </p>
 
 <ol>
-<% Team.all.each do |team| %>
+<% Team.includes(:supervisor).all.each do |team| %>
 	<li class = "well">
 		<%= link_to team.name, team_path(team) %>
+		<br>
+		<small>
+			Team Lead: <%= link_to team.supervisor.name, employee_path(team.supervisor) %>
+		</small>
 	</li>
 <% end %>
 </ol>
+
+<%= link_to "New Team", new_team_path, class: "pretty-link" %>
