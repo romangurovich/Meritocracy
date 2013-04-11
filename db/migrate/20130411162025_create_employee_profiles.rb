@@ -7,5 +7,7 @@ class CreateEmployeeProfiles < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :employee_profiles, :employee_id, unique: true
   end
 end

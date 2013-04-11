@@ -6,5 +6,8 @@ class CreateEmployees < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :employees, :name
+    add_index :employees, :supervisor_id
   end
 end
