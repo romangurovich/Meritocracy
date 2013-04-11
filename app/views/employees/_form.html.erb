@@ -16,26 +16,39 @@
 		</select>
 	</p>
 
-	<% unless employee.persisted? %>
 	<p>
-		<label id = "employee_teams">Select up to 3 teams</label>
-		<table>
-		<tr>
-		<% 3.times do |i| %> 
-			<td>
-				<label id = '<%= "employee_team_#{i+1}" %>'>Team <%= i + 1 %></label>
-				<select name = "employee[team_ids][]" id = '<%= "employee_team_#{i+1}" %>'>
-					<option value = "">(None)</option>
-					<% Team.all.each do |team| %>
-						<option value ="<%= team.id %>"><%= team.name %></option>
-					<% end %>
-				</select>
-			</th>
+		<% if employee.persisted? %>
+			<label id = "employee_teams">Select teams</label>
+			<% Team.all.each do |team| %>
+				<%= check_box_tag(
+					"employee[team_ids][]",
+					team.id,
+					employee.team_ids.include?(team.id),
+					id: "employee_team_#{team.id}"
+					)
+				%>
+				<%= label_tag "employee_team_#{team.id}", team.name %>
+			<% end %>
+			<% hidden_field_tag "employee[team_ids][]" %>
+		<% else %>
+			<label id = "employee_teams">Select up to 3 teams</label>
+			<table>
+			<tr>
+			<% 3.times do |i| %> 
+				<td>
+					<label id = '<%= "employee_team_#{i+1}" %>'>Team <%= i + 1 %></label>
+					<select name = "employee[team_ids][]" id = '<%= "employee_team_#{i+1}" %>'>
+						<option value = "">(None)</option>
+						<% Team.all.each do |team| %>
+							<option value ="<%= team.id %>"><%= team.name %></option>
+						<% end %>
+					</select>
+				</td>
+			<% end %>
+			</tr>
+			</table>
 		<% end %>
-	</td>
-	</table>
 	</p>
-	<% end %>
 
 	<p>
 		<%= f.fields_for(:profile) do |profile_form| %>

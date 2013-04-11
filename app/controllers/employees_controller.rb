@@ -25,11 +25,9 @@ class EmployeesController < ApplicationController
 
 	def edit
 		@employee = Employee.find(params[:id])
-		@employee.build_profile
 	end
 
 	def update
-		fail
 		@employee = Employee.find(params[:id])
 		@employee.assign_attributes(params[:employee])
 		if @employee.save
