@@ -1,5 +1,6 @@
 class Employee < ActiveRecord::Base
   attr_accessible :name, :supervisor_id, :profile, :profile_attributes, :team_ids
+  validates :name, presence: true, uniqueness: true
 
   has_many :subordinates, class_name: "Employee", foreign_key: :supervisor_id
   belongs_to :supervisor, class_name: "Employee"
