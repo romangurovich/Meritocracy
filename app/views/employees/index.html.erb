@@ -6,6 +6,7 @@
 <% Employee.all.each do |employee| %>
 	<li class = "well">
 		<%= link_to employee.name, employee_path(employee) %>
+		<%= link_to "fire", employee_path(employee), method: :delete, class: "btn btn-danger go-right" %>
 	</li>
 <% end %>
 </ol>

@@ -38,4 +38,10 @@ class EmployeesController < ApplicationController
 			render :edit
 		end
 	end
+
+	def destroy
+		@employee = Employee.find(params[:id]).destroy
+		flash[:notice] = "Yay! We fired #{@employee.name}."
+		redirect_to employees_path
+	end
 end

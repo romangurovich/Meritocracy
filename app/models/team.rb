@@ -4,6 +4,6 @@ class Team < ActiveRecord::Base
   validates :name, :supervisor_id, presence: true
 
   belongs_to :supervisor, class_name: "Employee", inverse_of: :supervised_teams
-  has_many :memberships, class_name: "TeamMembership"
+  has_many :memberships, class_name: "TeamMembership", dependent: :destroy
   has_many :members, through: :memberships, source: :employee 
 end
